@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA MIND QUEST</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#080b20,#171044,#071b35);
+color:white;
+text-align:center;
+min-height:100vh;
+padding:25px 15px;
+}
+.container{
+max-width:550px;
+margin:40px auto;
+padding:30px 20px;
+background:#ffffff12;
+border:1px solid #5b5bff;
+border-radius:22px;
+box-shadow:0 0 30px #514bff55;
+}
+h1{color:#67e8ff;font-size:30px}
+.subtitle{color:#c8c8e8}
+button{
+background:linear-gradient(90deg,#653cff,#00bfff);
+color:white;
+border:0;
+padding:14px 25px;
+border-radius:12px;
+font-size:17px;
+margin:10px;
+cursor:pointer;
+}
+button:hover{opacity:.85}
+.option{
+display:block;
+width:100%;
+background:#292454;
+border:1px solid #7771ff;
+}
+#game{display:none}
+#result{font-size:22px;color:#67e8ff}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🚀 NEXORA</h1>
+<h2>MIND QUEST</h2>
+
+<p class="subtitle">Play • Learn • Explore</p>
+
+<div id="home">
+<h3>Welcome to the Mind Quest!</h3>
+<p>Test your knowledge and unlock new levels.</p>
+<button onclick="startGame()">PLAY NOW ▶</button>
+</div>
+
+<div id="game">
+<h3 id="level"></h3>
+<p id="progress"></p>
+<h2 id="question"></h2>
+<div id="options"></div>
+<p id="score"></p>
+</div>
+
+<div id="result" style="display:none">
+<h2>🏆 QUEST COMPLETED!</h2>
+<p id="finalScore"></p>
+<button onclick="startGame()">PLAY AGAIN</button>
+</div>
+
+</div>
+
+<script>
+const questions=[
+{
+q:"Which planet is known as the Red Planet?",
+o:["Earth","Mars","Jupiter","Venus"],
+a:"Mars"
+},
+{
+q:"How many days are in a week?",
+o:["5","6","7","8"],
+a:"7"
+},
+{
+q:"Which animal is known as the King of the Jungle?",
+o:["Tiger","Lion","Elephant","Wolf"],
+a:"Lion"
+},
+{
+q:"What is 12 × 5?",
+o:["50","60","70","55"],
+a:"60"
+},
+{
+q:"Which is the largest ocean?",
+o:["Indian","Atlantic","Pacific","Arctic"],
+a:"Pacific"
+},
+{
+q:"What is the capital of India?",
+o:["Mumbai","Delhi","Kolkata","Jaipur"],
+a:"Delhi"
+},
+{
+q:"Which gas do plants absorb?",
+o:["Oxygen","Nitrogen","Carbon Dioxide","Hydrogen"],
+a:"Carbon Dioxide"
+},
+{
+q:"How many colours are in a rainbow?",
+o:["5","6","7","8"],
+a:"7"
+},
+{
+q:"Which is the fastest land animal?",
+o:["Lion","Cheetah","Horse","Tiger"],
+a:"Cheetah"
+},
+{
+q:"Which star is closest to Earth?",
+o:["Sirius","Sun","Polaris","Vega"],
+a:"Sun"
+}
+];
+
+let index=0;
+let points=0;
+
+function startGame(){
+index=0;
+points=0;
+document.getElementById("home").style.display="none";
+document.getElementById("result").style.display="none";
+document.getElementById("game").style.display="block";
+showQuestion();
+}
+
+function showQuestion(){
+let q=questions[index];
+document.getElementById("level").innerText="⭐ LEVEL "+(index+1);
+document.getElementById("progress").innerText=
+"Question "+(index+1)+" / "+questions.length;
+document.getElementById("question").innerText=q.q;
+document.getElementById("score").innerText="Score: "+points;
+
+let html="";
+q.o.forEach(option=>{
+html+=`<button class="option" onclick="answer('${option}')">${option}</button>`;
+});
+document.getElementById("options").innerHTML=html;
+}
+
+function answer(choice){
+if(choice===questions[index].a){
+points+=10;
+alert("Correct Answer! 🎉 +10 Points");
+}else{
+alert("Wrong Answer! Try the next one.");
+}
+
+index++;
+
+if(index<questions.length){
+showQuestion();
+}else{
+finishGame();
+}
+}
+
+function finishGame(){
+document.getElementById("game").style.display="none";
+document.getElementById("result").style.display="block";
+document.getElementById("finalScore").innerText=
+"You scored "+points+" / 100 points!";
+}
+</script>
+
+</body>
+</html>
